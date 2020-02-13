@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 from enhance import image_enhance
 from skimage.morphology import skeletonize, thin
 
-os.chdir("E:\SEMESTER 5\Biometric\Fingerprint Recognition Python")
-
 def removedot(invertThin):
     temp0 = numpy.array(invertThin[:])
     temp0 = numpy.array(temp0)
@@ -67,8 +65,7 @@ def get_descriptors(img):
 	orb = cv2.ORB_create()
 	# Compute descriptors
 	_, des = orb.compute(img, keypoints)
-	return (keypoints, des);
-
+	return (keypoints, des)
 
 def main():
 	image_name = sys.argv[1]
@@ -83,22 +80,24 @@ def main():
 	bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 	matches = sorted(bf.match(des1, des2), key= lambda match:match.distance)
 	# Plot keypoints
-	img4 = cv2.drawKeypoints(img1, kp1, outImage=None)
-	img5 = cv2.drawKeypoints(img2, kp2, outImage=None)
-	f, axarr = plt.subplots(1,2)
-	axarr[0].imshow(img4)
-	axarr[1].imshow(img5)
-	plt.show()
+	#img4 = cv2.drawKeypoints(img1, kp1, outImage=None)
+	#img5 = cv2.drawKeypoints(img2, kp2, outImage=None)
+	#f, axarr = plt.subplots(1,2)
+	#axarr[0].imshow(img4)
+	#axarr[1].imshow(img5)
+	#plt.show()
 	# Plot matches
-	img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches, flags=2, outImg=None)
-	plt.imshow(img3)
-	plt.show()
+	#img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches, flags=2, outImg=None)
+	#plt.imshow(img3)
+	#plt.show()
 	
 	# Calculate score
-	score = 0;
+	score = 0
 	for match in matches:
 		score += match.distance
 	score_threshold = 33
+	#print(score)
+	#print(len(matches))
 	if score/len(matches) < score_threshold:
 		print("Fingerprint matches.")
 	else:
